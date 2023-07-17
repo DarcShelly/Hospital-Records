@@ -4,7 +4,7 @@ yes = ['Y', 'YE', 'YES', 'YA', 'YEAH', 'YEY']
 no = ['N', 'NO', '', 'NOPE', 'NONE', 'NAY']
 
 def cosym():
-    '''Gets symptoms from the patient and provides a score for him/her'''
+    '''Gets symptoms from the patient and provides a score for them'''
     score = 0
     
     print("Enter y for yes and n for no\n")
@@ -63,7 +63,7 @@ def suggest(score = 0):
         return report(5)
 
 def tell(cond):
-    '''Tells the patient about his/her condition.'''
+    '''Prints the result.'''
     
     print()
     time.sleep(5)
@@ -76,7 +76,7 @@ def tell(cond):
     return
 
 def report(score):
-    '''Finds out the condition of the patient on the basis of its test score'''
+    '''Randomly assigns a condition to the patient based on previous responses.'''
     import random
     opt = ['negative', 'mild', 'normal', 'severe', "HOW AREN'T YOU DEAD!!", 'negative', 'negative', 'negative', 'negative']
     L = opt[:score] + opt[(2*score)+1:]
@@ -89,6 +89,7 @@ def report(score):
 
 
 def getch():
+    '''Prints the main menu and reads a response from user.'''
     print ("Are you a patient here? Enter 1.")
     print("Are you a staff member or have applied for a job? Enter 2.")
     print("Want to apply for a job? Enter 3.")
@@ -98,4 +99,3 @@ def getch():
     ch = input("").strip()
     print()
     return ch
-
