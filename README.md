@@ -14,14 +14,20 @@ The program is based on the setting that the user is visiting a hospital focused
  - An existing patient can access and update information their information. Any changes automatically updates the MySQL database. Whenever a patient access their record, there is a chance that the patient condition deteriorates or improve. If the patient is tested negative or dies, their record is deleted from the database and the number of patients of the related doctor is decreased.
  - An employee can also access and update their information. An employe can also resign, deleting their record.
  - A job seeker can assign for various (made-up) positions and fill other details. Each applicant's data is saved in the table of staff members awaiting inspection by the admin.
- - The admin has full control over the database. They can kick out any patient/employee, update any information, and access all records. The admin can review all the applicants and choose to select from them. Any new doctor is added to the doctor's text file with 0 patients.
+ - The admin has full control over the database. They can kick out any patient/employee, update any information, and access all records. The admin can review all the applicants and choose to select from them. Any new doctor is added to file 'attendants.txt' with 0 patients.
+ - All the patients and staff members are assigned respectively unique ids and the each patient is provided an empty bed number To keep track of the different ids, these ids are saved in a text file seperately along with assigned bed numbers. (There are an infinite number of beds in the hospital.)
+ - A patient/employee can search for their record by their unique ids or names.
 
 ## Layout
-The code is devided into three files-
+The code is contained within hree files-
   * addit.py
   * all_functions.py
   * project-menu.py
 The project-menu file contain all the __main__ of the project, i.e., the part where user interacts with the code. The all_functions file contains all the functions which are used for interaction with MySQL databases and data manipulation. The addit file contains additional functions which are of use but not directly related to MySQL interaction.
+There are 3 text files-
+  * project.txt contain the unique patient and staff ids along with the assigned bed numbers.
+  * attendants.txt contain the name of doctors along with the number of assigned patients.
+  * host_data.txt contain the data necessary to access MySQL database, i.e, the host-name, user-name and password.
 
 ## Future Plans
 This program was my first big underdtaking as a project and while amititious and meticulously bug-free (or atleast able to catch all errors), the code is predictbly redundant in many places. Moreover, a lot of it could have been simplified if not improved if I had used some other libraries that I did know at the time - like numpy for handling data.
