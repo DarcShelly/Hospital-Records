@@ -2,12 +2,13 @@
 import mysql.connector as sqltr
 from datetime import date
 
-hostdata = open(r'C:\Users\vaibh\OneDrive\Documents\school_project\host_data.txt').readlines()
+hostdata = open(r'./host_data.txt').readlines()
 hostdata = [a.rstrip() for a in hostdata]
 mycon = sqltr.connect(host = hostdata[0], user = hostdata[1], passwd = hostdata[2])
 curs = mycon.cursor()
 
 def init_tables():
+    '''Creates a new databses if none exists. Opens the existing database otherwise.'''
     try:
         curs.execute("Create database project")      #Creates database required
         curs.execute("Use project")
@@ -22,7 +23,7 @@ def init_tables():
         curs.execute("Use project")
 
 class StaffImplement:
-    '''(self, **arg) = (staff details).
+    '''(self, *arg) = (staff details).
        Initiate and saves new staff member details and/or make changes to them.'''
     
     def __init__(self,L=[0,0,0,0,0,0,0,0,0,'Y']):
@@ -197,7 +198,7 @@ class StaffImplement:
 
 
 class PatientImplement:
-    '''(self, **arg') = (patient details)
+    '''(self, *arg') = (patient details)
         Initiates and saves patient details and/or makes changes to them.'''
 
     def __init__(self, L = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]):
@@ -346,7 +347,7 @@ class PatientImplement:
         mycon.commit()
 
 def newpatid(table, cond = False, bed = False):
-    '''Creates a new patid from file.'''
+    '''Creates a new patid which does not already exist in the file.'''
     with open('./project.txt', 'r') as fh:           # Opening the file consisting already existing ids
         if table:
             fh.readline()
@@ -380,7 +381,7 @@ def newpatid(table, cond = False, bed = False):
 
 
 def addid(Id, table=0, t = False, bed = False):
-    '''Adds new id to file.'''
+    '''Adds newly created id to the id file.'''
     with open('./project.txt', 'r') as fh:
         file = fh.readlines()       # Retrieving file data as list.
     
@@ -402,6 +403,7 @@ def addid(Id, table=0, t = False, bed = False):
     return
     
 def attendant(check = False, newname = '', oldname = ''):
+    ''' Assigns the doctor with the least patients with a new patient.'''
 
     fh = open('./attendants.txt', 'r')
     doc_list = fh.readline().strip().split('  ')
@@ -451,6 +453,7 @@ def applicant(a):
     return
 
 def getrow(tab, Id=0):
+    '''Fetches the row of the specified patient/staff.'''
     L = (['patient', 'staff'], ['patient', 'staff member'])
     identity = (['PID', 'SID'], ['PName', 'SName'])
     table = ('patients', 'staff')
@@ -517,6 +520,7 @@ def display(table = 0):
     return row
     
 def newpatrow(state):
+    '''Initialises an instant of patient data.'''
     p1 = PatientImplement([0, 0, 0, 0, 0, state, 0, 0, 0, 0, 0])
     p1.doa()
     p1.PID()
@@ -532,6 +536,7 @@ def newpatrow(state):
     
 
 def uppat(row, admin = False):
+    '''Updates the patient information.'''
     p1 = PatientImplement(row)
     pid = row[0]
     print('Choose what you want to modify:')
@@ -594,6 +599,7 @@ def uppat(row, admin = False):
 
         
 def upstaff(row, admin = False):
+    '''Updates the staff information.'''
     s1 = StaffImplement(row)
     sid = row[0]
     print("Choose what you want to modify:")
@@ -658,6 +664,7 @@ def showpats(row):
             print(pat)
 
 def addattend(name):
+    '''Adds another staff member into the hospital records.'''
     with open('./attendants.txt', 'r') as fh:
         doc = fh.readline().strip()
         patnum = fh.readline().strip()
@@ -670,6 +677,7 @@ def addattend(name):
     
 
 def appoint():
+    '''Appoint a doctor to a patient.'''
     query = "SELECT SID, SName, Age, Sex, Address, Post FROM staff WHERE applicant = 'Y'"
     curs.execute(query)
     data = curs.fetchall()
