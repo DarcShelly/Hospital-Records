@@ -2,16 +2,19 @@
 The following is a project I submitted in school for final evaluation during my last year of highschool. The stated goal was to write a python code to do a couple of limited operation on an existing SQL database via python.
 I decided to be a bit more ambitious and design a complete UI with the help of python that would simulate a "virtual" hospital with the help of two updatable tables for patients and staff members with varying levels of access for different people - patients, staff members and the administrator who has full control.
 One can add new records, change existing records, delete records, create a new database from the python interface without ever interacting with MySQL directly.
-My reference material- the school textbook - contained only a limited information on mysql-connector and class in python, which is the main library used for python-MySQL interaction. Therefore, I was forced to stumble my way through OOPs tutorials and mysql-connector docs to complete the project.
+I used **mysql.connector** python library for python-mysql interaction.
+My reference material- the school textbook - contained only a limited information on mysql-connector and classes(OOPs). Therefore, I was forced to stumble my way through OOPs tutorials and mysql-connector docs to complete the project.
 I tried using tkinter to develop a UI for my program, however due to my limited exposure to designing at the time, the process was slow-going and I was forced to drop the idea as the deadline drew close and multiple bugs kept cropping up. 
 
 ## What Can It Do?
 I have decided to forgo the careful description of each function in the program in favour of elaborating what it can do.
-The program is based on the setting that the user is visiting a hospital focused on covid patients.. The user might be a potential patient, an existing patient(or their relative), an employee, a job-seeker or the administrator.
+The program is based on the setting that the user is visiting a hospital focused on covid patients. The user might be a potential patient, an existing patient(or their relative), an employee, a job-seeker or the administrator.
  - A potential patient is asked a number of questions for covid symptoms and based on their score, they are diagnosed for covid, with results ranging from "negative" and "mild" to "How are you alive?!". If the patient is tested positive, they are required to provide information which is then saved as a new row in the table of patients in MySQL.
- - 
- - An existing patient can update information their information. Whenever a patient access their record, there is a chance that the patient condition deteriorates or improve. If the patient is tested negative or dies, their record is deleted from the database.
- - 
+ - Every new patient is assigned to a doctor with the minimum number of current patients. Every doctor's unique SID is saved on a seperate text file along with current number of patients.
+ - An existing patient can access and update information their information. Any changes automatically updates the MySQL database. Whenever a patient access their record, there is a chance that the patient condition deteriorates or improve. If the patient is tested negative or dies, their record is deleted from the database and the number of patients of the related doctor is decreased.
+ - An employee can also access and update their information. An employe can also resign, deleting their record.
+ - A job seeker can assign for various (made-up) positions and fill other details. Each applicant's data is saved in the table of staff members awaiting inspection by the admin.
+ - The admin has full control over the database. They can kick out any patient/employee, update any information, and access all records. The admin can review all the applicants and choose to select from them. Any new doctor is added to the doctor's text file with 0 patients.
 
 ## Layout
 The code is devided into three files-
