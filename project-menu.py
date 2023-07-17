@@ -1,5 +1,5 @@
 from addit import *
-from staff import *
+from all_functions import *
 
 password = 'DDpt'
 
